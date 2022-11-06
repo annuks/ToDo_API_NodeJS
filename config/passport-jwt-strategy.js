@@ -10,7 +10,7 @@ let opts = {
     secretOrKey:'equivotask',
 }
 passport.use(new JWTStrategy(opts, function(jwtPayLoad,done){
-    Doctors.findById(jwtPayLoad._id, function(err,user){
+    User.findById(jwtPayLoad._id, function(err,user){
         if(err){
             console.log("Error in finding user from JWT");
             return;

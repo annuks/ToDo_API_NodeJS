@@ -24,7 +24,7 @@ module.exports.signin = async function (req, res) {
         },
       });
     } catch (err) {
-      console.log(" Errrrrrror in JWT", err);
+      console.log(" Error in JWT", err);
       return res.json(500, {
         message: "Internal Server error",
       });
