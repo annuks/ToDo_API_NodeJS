@@ -1,30 +1,34 @@
-const express =require('express');
-const app =express();
-const port =3333;
-const mongoose= require('mongoose');
-const dotenv  = require('dotenv');
-const bodyParser= require('body-parser');
-dotenv.config();
+require('dotenv').config();
+const express = require('express');
+const app=express();
+const port =3000;
+const db = require('./config/mongoose');
 
-//importing routes
-const authRoute = require('./Routes/auth');
+const passport = require("passport");
+const passportJWT =require ("./config/passport-jwt-strategy");
 
-//creating middleware
-
-mongoose.connect(process.env.DB,()=>{
-    console.log("Connected to MongoDB::")
-})
 
 app.use(express.urlencoded());
-
-
-app.use('/api/user',authRoute);
 app.use(express.json());
+
+//Setting Route folder to use routes
+app.use(passport.initialize());
+
+
+const bodyparser = require('body-parser');
+
+
+app.use(express.urlencoded());
+app.use(bodyparser.json());
+//importing routes
+
+
+app.use('/',require('./routes'));
 
 app.listen(port,function (err){
     if (err)
     {
-    console.log("Error in Server ");
+    console.log("Error while Running  Server ");
     return;
     }
     else{
